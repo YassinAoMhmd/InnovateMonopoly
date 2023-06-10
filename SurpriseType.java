@@ -1,6 +1,5 @@
-package InnovateMonopoly;
+package innovateMonopoly;
 
 enum SurpriseType {
-    GOJAIL, GOBOX, PAYCOLLECT, BYHOUSEHOTEL,
-    PERPLAYER, EXITJAIL
+    GOJAIL, GOBOX, PAYCOLLECT, BYHOUSEHOTEL, PERPLAYER, EXITJAIL
 }

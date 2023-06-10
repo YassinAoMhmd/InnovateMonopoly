@@ -1,4 +1,4 @@
-package InnovateMonopoly;
+package innovateMonopoly;
 
 import java.util.ArrayList;
 
@@ -19,15 +19,15 @@ public class Journal {
         events.add (e);
     }
 
-    public boolean pendientEvents() {
+    public boolean PendingsEvents() {
         return !events.isEmpty();
     }
 
     public String readEvent() {
-        String out = "";
+        String exit = "";
         if (!events.isEmpty()) {
-            out = events.remove(0);
+            exit = events.remove(0);
         }
-        return out;
+        return exit;
     }
 }

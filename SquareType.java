@@ -1,5 +1,5 @@
-package InnovateMonopoly;
+package innovateMonopoly;
 
-enum SquareType {
+  enum SquareType {
     STREET, SURPRISE, JUDGE, TAX, REST
-}
+  }

@@ -1,27 +1,27 @@
-package InnovateMonopoly;
+package innovateMonopoly;
 
 import java.util.ArrayList;
 
 public class Board {
-    private int numBoxParcel;
+    private int numSquareJail;
     private ArrayList<Square> squares;
     private int byDeparture;
     private boolean hasJudge;
 
-    Board(int num) {
-        if (num >= 1) {
-            numBoxParcel = num;
+    Board(int square_jail) {
+        if (square_jail >= 1) {
+            numSquareJail = square_jail;
         } else {
-            numBoxParcel = 1;
+            numSquareJail = 1;
         }
         squares = new ArrayList<>();
-        squares.add(new Square("Out"));
+        squares.add(new Square("Exit"));
         byDeparture = 0;
         hasJudge = false;
     }
 
     private boolean correct(){
-        if(squares.size() > numBoxParcel && hasJudge ==true){
+        if(squares.size() > numSquareJail && hasJudge ==true){
             return true;
         }
         else{
@@ -29,16 +29,16 @@ public class Board {
         }
     }
 
-    private boolean correct(int num){
-        if(correct()  && num < squares.size()){return true;
+    private boolean correct(int numSquare){
+        if(correct() == true && numSquare < squares.size()){return true;
         }
         else{
             return false;
         }
     }
 
-    int getParcel(){
-        return numBoxParcel;
+    int getJail(){
+        return numSquareJail;
     }
 
     int getByDeparture(){
@@ -50,21 +50,21 @@ public class Board {
         }
     }
 
-    void addBox(Square num){
-        if(squares.size() == numBoxParcel){
-            squares.add(new Square("Parcel"));
+    void addSquare(Square square){
+        if(squares.size() == numSquareJail){
+            squares.add(new Square("Jail"));
         }
 
-        squares.add(num);
+        squares.add(square);
 
-        if(squares.size() == numBoxParcel){
-            squares.add(new Square("Parcel"));
+        if(squares.size() == numSquareJail){
+            squares.add(new Square("Jail"));
         }
     }
 
     void addJudge(){
         if(hasJudge == false){
-            squares.add(new Square("Judge"));
+            squares.add(new Square(numSquareJail,"Judge"));
             hasJudge = true;
         }
     }
@@ -78,18 +78,18 @@ public class Board {
         }
     }
 
-    int newPosition(int currect, int roll){
+    int newPosition(int current, int throwing){
         if(correct() == true){
-            int position;
+            int Position;
 
-            position = currect + roll;
+            Position = current + throwing;
 
-            if(position >= squares.size()){
-                position = position% squares.size();
+            if(Position >= squares.size()){
+                Position = Position% squares.size();
                 ++byDeparture;
             }
 
-            return position;
+            return Position;
 
         }else {
             return -1;
@@ -97,15 +97,19 @@ public class Board {
     }
 
     int calculateShot(int source, int destination){
-            int numThrow;
+            int throwing;
 
             if(destination < source){
-                numThrow = squares.size() - source + destination;
+                throwing = squares.size() - source + destination;
             }
             else{
-                numThrow = destination - source;
+                throwing = destination - source;
             }
 
-            return numThrow;
+            return throwing;
+    }
+
+    public ArrayList<Square> getSquares(){
+        return squares;
     }
 }

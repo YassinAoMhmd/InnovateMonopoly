@@ -1,4 +1,4 @@
-package InnovateMonopoly;
+package innovateMonopoly;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,15 +8,15 @@ public class SurpriseDeck {
     private boolean shuffle;
     private int used;
     private boolean debug;
-    private ArrayList<Surprise> specialCarts;
+    private ArrayList<Surprise> specialCards;
     private Surprise lastSurprise;
 
 
 
     private void init(){
         surprises = new ArrayList<Surprise>();
-        specialCarts = new ArrayList<Surprise>();
         shuffle = false;
+        specialCards = new ArrayList<Surprise>();
         used = 0;
     }
 
@@ -24,7 +24,7 @@ public class SurpriseDeck {
         debug = _debug;
         init();
         if(debug == true){
-            Journal.getInstance().occurEvent("Debug mode is active");
+            Journal.getInstance().occurEvent("Debug mode is enabled");
         }
 
     }
@@ -34,50 +34,53 @@ public class SurpriseDeck {
         debug = false;
     }
 
-    void alMazo(Surprise s){
+    void toDeck(Surprise s){
         if(shuffle == false){
             surprises.add(s);
         }
     }
 
     Surprise next(){
-        if(shuffle == false || used == surprises.size()) {
-            if(debug == false) {
+        if((shuffle == false || used == surprises.size())) {
+            if (debug == false) {
                 used = 0;
                 shuffle = true;
                 Collections.shuffle(surprises);
             }
-            used++;
-            lastSurprise = surprises.get(0);
-            surprises.add(lastSurprise);
-            surprises.remove(0);
-        }
 
+
+            used++;
+            surprises.add(surprises.get(0));
+            surprises.remove(0);
+
+            lastSurprise = surprises.get(surprises.size() - 1);
+        }
         return lastSurprise;
     }
 
-    void inhabilitateSpecialCart(Surprise surprise){
+    void notenableSpecialCards(Surprise surprise){
         for(int i = 0; i < surprises.size(); i++){
             if(surprise == surprises.get(i)){
-                specialCarts.add(surprises.get(i));
+                specialCards.add(surprises.get(i));
                 surprises.remove(i);
-                Journal.getInstance().occurEvent("Special cart has been removed in the deck and added to special carts");
+                Journal.getInstance().occurEvent("The special card has been removed from the deck and added to Special cards.");
             }
         }
 
     }
 
-    void habilitateSpecialCart(Surprise surprise){
-        for(int i = 0; i < specialCarts.size(); i++){
-            if(surprise == specialCarts.get(i)){
-                surprises.add(specialCarts.get(i));
-                specialCarts.remove(i);
-                Journal.getInstance().occurEvent("Surprise in special carts has been removed and added to surprise");
+    void enableSpecialCards(Surprise surprise){
+        for(int i = 0; i < specialCards.size(); i++){
+            if(surprise == specialCards.get(i)){
+                surprises.add(specialCards.get(i));
+                specialCards.remove(i);
+                Journal.getInstance().occurEvent("Removed surprise from special cards and added to surprises");
             }
         }
 
     }
 
-
-
+    Surprise getLastSurprise() {
+        return lastSurprise;
+    }
 }

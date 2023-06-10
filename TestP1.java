@@ -1,18 +1,17 @@
-package InnovateMonopoly;
+package innovateMonopoly;
 
 public class TestP1 {
     public static void main(String[] args) {
-
         int player1 = 0;
         int player2 = 0;
         int player3 = 0;
         int player4 = 0;
         int start = 0;
 
-        Dice SquareType = Dice.getInstance();
+        Dice dado = Dice.getInstance();
 
         for (int i = 0; i < 100; i++) {
-            start = SquareType.whoStart(4);
+            start = dado.whoStart(4);
             if (start == 1) {
                 player1++;
             } else if (start == 2) {
@@ -24,60 +23,58 @@ public class TestP1 {
             }
         }
 
-        System.out.println("The value 1 repet: " + player1 + "time\n");
-        System.out.println("The value 2 repet: " + player2 + "time\n");
-        System.out.println("The value 3 repet: " + player3 + " time\n");
-        System.out.println("The value 4 repet: " + player4 + " time\n");
+        System.out.println("The value 1 has been repeated: " + player1 + " times\n");
+        System.out.println("The value 2 has been repeated: " + player2 + " times\n");
+        System.out.println("The value 3 has been repeated: " + player3 + " times\n");
+        System.out.println("The value 4 has been repeated: " + player4 + " times\n");
 
-        SquareType.setDebug(true);
-        System.out.println("The throw has been: " + SquareType.draw());
+        dado.setDebug(true);
+        System.out.println("The dart throw has been: " + dado.throwDice());
 
-        SquareType.setDebug(false);
-        System.out.println("The throw has been: " + SquareType.draw());
-
+        dado.setDebug(false);
+        System.out.println("The dart throw has been: " + dado.throwDice());
 
         int lastResult;
-        boolean out_prision = false;
-        lastResult = SquareType.getLastResult();
-        System.out.println("Last result has been: " + lastResult + "\n");
+        boolean exit_jail = false;
+        lastResult = dado.getLastResult();
+        System.out.println("The latest result has been: " + lastResult + "\n");
 
-        out_prision = SquareType.getFromJailOut();
-        if(out_prision == true) {
-            System.out.println("I can go out from the jail\n");
+        exit_jail = dado.exitFromJail();
+        if(exit_jail == true) {
+            System.out.println("I can get out of prison\n");
         }
         else{
-            System.out.println("I need to be in the jail\n");
+            System.out.println("I must stay in the prison\n");
         }
 
-
-        System.out.println("Type surprise chosen: \n" + SurpriseType.BYHOUSEHOTEL);
-        System.out.println("Type square chosen: \n" + InnovateMonopoly.SquareType.STREET);
+        System.out.println("Type of surprise chosen: \n" + SurpriseType.BYHOUSEHOTEL);
+        System.out.println("Type of square selected: \n" + SquareType.STREET);
 
         Board board = new Board(2);
 
-        board.addBox(new Square("STREET"));
-        board.addBox((new Square("PARKING")));
-        board.addBox((new Square("SURPRISE")));
-        board.addBox(new Square("REST"));
-        board.addBox(new Square("TAX"));
-        board.addBox((new Square("JUDGE")));
+        board.addSquare(new Square("STREET"));
+        board.addSquare((new Square("PARKING")));
+        board.addSquare((new Square("SURPRISE")));
+        board.addSquare(new Square("EXIT"));
+        board.addSquare(new Square("TAXES"));
+        board.addSquare((new Square("GO TO THE JAIL")));
 
 
 
         board.addJudge();
 
-        int nThrow;
-        int newThrow;
+        int throwing;
+        int new_throw;
 
-        nThrow= board.newPosition(0, SquareType.draw());
+        throwing= board.newPosition(0,dado.throwDice());
 
-        System.out.println("The throw has been: " + nThrow + "\n" + "and the new position is: " + SquareType.getLastResult());
+        System.out.println("The throwing was: " + throwing + "\n" + "And the new position is: " + dado.getLastResult());
 
-        newThrow = SquareType.draw();
+        new_throw = dado.throwDice();
 
-        System.out.println("We are going to calculate what is gonna be the throw beetwen " + nThrow + " to the new throw " + newThrow + "\n");
+        System.out.println("Let's calculate how much the launch would be from " + throwing + " until the new throwing " + new_throw + "\n");
 
-        System.out.println("To happen this the throw has to be: " + board.calculateShot(nThrow, newThrow));
+        System.out.println("For this to happen, the throwing must be of: " + board.calculateShot(throwing, new_throw));
 
     }
 }
